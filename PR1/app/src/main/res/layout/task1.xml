@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+    <!-- Поля для вводу значень -->
+    <EditText
+            android:id="@+id/carbon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Введіть частку вуглецю (%)"
+            android:inputType="number|numberDecimal" android:autoText="false"/>
+
+    <EditText
+            android:id="@+id/hydrogen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Введіть частку водню (%)"
+            android:inputType="number|numberDecimal"/>
+
+    <EditText
+            android:id="@+id/sulfur"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Введіть частку сірки (%)"
+            android:inputType="number|numberDecimal"/>
+
+    <EditText
+            android:id="@+id/vanadium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Введіть частку азоту (%)"
+            android:inputType="number|numberDecimal"/>
+
+    <EditText
+            android:id="@+id/oxygen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Введіть частку кисню (%)"
+            android:inputType="number|numberDecimal"/>
+
+    <EditText
+            android:id="@+id/moisture"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Введіть частку вологи (%)"
+            android:inputType="number|numberDecimal"/>
+
+    <!-- Кнопка для обчислення -->
+    <EditText
+            android:id="@+id/ash"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Введіть частку золи (%)"
+            android:inputType="number|numberDecimal"/>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <Button
+                android:text="Обчислити"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/calculate_button" android:layout_weight="1"/>
+        <Button
+                android:text="Назад"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/back_button" android:layout_weight="1"/>
+    </LinearLayout>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="159dp">
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/dryComponentstextView" android:layout_weight="1"/>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/ashFreeComponentsTextView"
+                android:layout_weight="1"/>
+    </LinearLayout>
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:id="@+id/workWormthTextView"/>
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:id="@+id/dryWormthTextView"/>
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:id="@+id/ashFreeWormthTextView"/>
+    </LinearLayout>
+
+    <!-- Поле для виведення результату -->
+</LinearLayout>
