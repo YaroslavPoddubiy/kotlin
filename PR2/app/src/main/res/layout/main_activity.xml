@@ -1,0 +1,24 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent" android:layout_height="match_parent">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:padding="16dp">
+        <!--  Поля для вводу значень  -->
+        <TextView
+                android:text="Виберіть тип палива:"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:id="@+id/textView"/>
+        <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:id="@+id/spinner"/>
+        <EditText android:id="@+id/fuelVolume" android:layout_width="match_parent" android:layout_height="wrap_content"
+                  android:hint="Введіть кількість палива" android:inputType="number|numberDecimal"
+                  android:autoText="false"/>
+        <!--  Кнопка для обчислення  -->
+        <Button
+                android:text="Обчислити"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:id="@+id/calculateButton"/>
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:id="@+id/resultTextView"/>
+        <!--  Поле для виведення результату  -->
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
