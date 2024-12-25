@@ -16,7 +16,7 @@ import androidx.navigation.NavHostController
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PaymentMethods(navController: NavHostController) {
+fun PaymentMethods(navController: NavHostController, userViewModel: UserViewModel) {
     var paymentMethods by remember { mutableStateOf(listOf("Visa **** 1234", "MasterCard **** 5678")) }
     var newPaymentMethod by remember { mutableStateOf("") }
 

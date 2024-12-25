@@ -26,10 +26,15 @@ import kotlinx.coroutines.launch
 
 
 @Composable
-fun Restaurants(navController: NavHostController, viewModel: RestaurantsViewModel = RestaurantsViewModel()) {
-    val restaurants by viewModel.restaurants.observeAsState(initial = emptyList())
+fun Restaurants(navController: NavHostController, userViewModel: UserViewModel, viewModel: RestaurantsViewModel = RestaurantsViewModel()) {
     val scope = rememberCoroutineScope()
-    var city by remember { mutableStateOf("") }
+    val user by userViewModel.user.observeAsState()
+    var city by remember { mutableStateOf("${user?.city}") }
+    val restaurants by viewModel.restaurants.observeAsState(initial = emptyList())
+
+    scope.launch {
+        viewModel.fetchRestaurants(city)
+    }
 //    LaunchedEffect(city) {
 //        restaurants = FastApiClient.apiService.getRestaurants("рівне")
 //    }

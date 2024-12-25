@@ -9,7 +9,10 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -20,18 +23,17 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-
+import kotlinx.coroutines.launch
 
 
 //data class Item(val name: String, val price: String, val imageRes: Int)
 
 @Composable
-fun Cart(navController: NavHostController) {
-    val Items = remember {
-        listOf(
-            Item(1, "Біг мак меню", "", 230.0, 1, "static/restaurants/bigmacmenu.jpg"),
-            Item(2, "Дабл Роял Чізбургер Меню", "", 170.0, 1, "static/no_photo.jpg")
-        )
+fun Cart(navController: NavHostController, userViewModel: UserViewModel) {
+    val items by userViewModel.items.observeAsState(emptyList())
+    val scope = rememberCoroutineScope()
+    scope.launch {
+        userViewModel.getCart()
     }
 
     Column(
@@ -74,8 +76,10 @@ fun Cart(navController: NavHostController) {
 
         // Menu list
         LazyColumn {
-            items(Items) { Item ->
-                CartItemCard(Item)
+            items(items) { item ->
+                ItemCard("cart", item,
+                    onClick = {navController.navigate("item/${item.id}")},
+                    onButtonClick = {userViewModel.removeFromCart(item.id)})
             }
         }
 
@@ -88,56 +92,6 @@ fun Cart(navController: NavHostController) {
                 .background(Color(0xFF74C68F), shape = RoundedCornerShape(12.dp))
         ) {
             Text(text = "Замовити", color = Color.White)
-        }
-    }
-}
-
-@Composable
-fun CartItemCard(item: Item) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(bottom = 16.dp)
-            .background(color = Color.White)
-            .clickable { /* Add to cart logic */ },
-        colors = CardDefaults.cardColors(
-            containerColor = Color.White,
-        ),
-        shape = RoundedCornerShape(12.dp),
-        elevation = CardDefaults.cardElevation(1.dp)
-    ) {
-        Row(
-            modifier = Modifier.padding(16.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            // Image
-//            Image(
-//                painter = painterResource(id = Item.imageRes),
-//                contentDescription = "${Item.name} Image",
-//                modifier = Modifier
-//                    .size(100.dp)
-//                    .padding(end = 16.dp)
-//            )
-
-            // Details
-            Column(
-                modifier = Modifier.weight(1f)
-            ) {
-                Text(
-                    text = item.name,
-//                    style = MaterialTheme.typography.titleMedium,
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.SemiBold,
-                    modifier = Modifier.padding(bottom = 8.dp)
-                )
-                Text(
-                    text = item.price.toString(),
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.Normal,
-//                    style = MaterialTheme.typography.bodyMedium
-                )
-            }
-
         }
     }
 }

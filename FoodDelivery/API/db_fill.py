@@ -22,35 +22,35 @@ def fill_restaurants():
 
 def fill_menu():
     connection.execute(
-        "INSERT INTO Items (id, name, ingredients, price, restaurant_id, imageUrl) "
+        "INSERT INTO Items (id, name, ingredients, price, restaurantId, imageUrl) "
         "VALUES (?, ?, ?, ?, ?, ?)", [1, "BigMac", " ", 120, 1, "static/items/bigmacmenu.jpg"]
     )
     connection.execute(
-        "INSERT INTO Items (id, name, ingredients, price, restaurant_id, imageUrl) "
+        "INSERT INTO Items (id, name, ingredients, price, restaurantId, imageUrl) "
         "VALUES (?, ?, ?, ?, ?, ?)", [2, "MacChicken", " ", 70, 1, "static/no_photo.jpg"]
     )
     connection.execute(
-        "INSERT INTO Items (id, name, ingredients, price, restaurant_id, imageUrl) "
+        "INSERT INTO Items (id, name, ingredients, price, restaurantId, imageUrl) "
         "VALUES (?, ?, ?, ?, ?, ?)", [3, "Big Tasty", " ", 130, 1, "static/no_photo.jpg"]
     )
     connection.execute(
-        "INSERT INTO Items (id, name, ingredients, price, restaurant_id, imageUrl) "
+        "INSERT INTO Items (id, name, ingredients, price, restaurantId, imageUrl) "
         "VALUES (?, ?, ?, ?, ?, ?)", [4, "Chicken Strips", " ", 150, 2, "static/no_photo.jpg"]
     )
     connection.execute(
-        "INSERT INTO Items (id, name, ingredients, price, restaurant_id, imageUrl) "
+        "INSERT INTO Items (id, name, ingredients, price, restaurantId, imageUrl) "
         "VALUES (?, ?, ?, ?, ?, ?)", [5, "Pizza Margarita", " ", 210, 3, "static/no_photo.jpg"]
     )
     connection.execute(
-        "INSERT INTO Items (id, name, ingredients, price, restaurant_id, imageUrl) "
+        "INSERT INTO Items (id, name, ingredients, price, restaurantId, imageUrl) "
         "VALUES (?, ?, ?, ?, ?, ?)", [6, "Pizza 4 cheeses", " ", 240, 3, "static/no_photo.jpg"]
     )
     connection.execute(
-        "INSERT INTO Items (id, name, ingredients, price, restaurant_id, imageUrl) "
+        "INSERT INTO Items (id, name, ingredients, price, restaurantId, imageUrl) "
         "VALUES (?, ?, ?, ?, ?, ?)", [7, "Cola", " ", 30, 2, "static/no_photo.jpg"]
     )
     connection.execute(
-        "INSERT INTO Items (id, name, ingredients, price, restaurant_id, imageUrl) "
+        "INSERT INTO Items (id, name, ingredients, price, restaurantId, imageUrl) "
         "VALUES (?, ?, ?, ?, ?, ?)", [8, "Pepsi", " ", 35, 1, "static/no_photo.jpg"]
     )
     connection.commit()

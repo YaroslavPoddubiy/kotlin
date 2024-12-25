@@ -2,8 +2,7 @@ package com.example.fooddelivery
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.GET
-import retrofit2.http.Path
+import retrofit2.http.*
 
 data class Restaurant(
     val id: Int,
@@ -21,6 +20,31 @@ data class Item(
     val restaurantId: Int,
     val imageUrl: String
 )
+
+
+data class User(
+    val login: String,
+    val password: String,
+    val firstName: String,
+    val lastName: String,
+    val email: String,
+    val city: String,
+    val address: String,
+    val isAdmin: Boolean,
+)
+
+
+data class LoginRequest(
+    val login: String,
+    val password: String
+)
+
+
+data class AddToCartRequest(
+    val userLogin: String,
+    val itemId: Int
+)
+
 
 data class ApiResponse(val message: String)
 
@@ -42,6 +66,23 @@ interface FastApiService {
 
     @GET("/hello/")
     suspend fun helloWorld(): ApiResponse
+
+    @GET("/cart/{userLogin}")
+    suspend fun cart(@Path("userLogin") userLogin: String): List<Item>
+
+//    @FormUrlEncoded
+    @POST("/login/")
+    suspend fun login(@Body loginRequest: LoginRequest): User
+
+//    @FormUrlEncoded
+    @POST("/register/")
+    suspend fun register(@Body loginRequest: LoginRequest): User
+
+    @POST("/add_to_cart/")
+    suspend fun addToCart(@Body addToCartRequest: AddToCartRequest)
+
+    @POST("/remove_from_cart/")
+    suspend fun removeFromCart(@Body removeFromCartRequest: AddToCartRequest)
 }
 
 object FastApiClient {

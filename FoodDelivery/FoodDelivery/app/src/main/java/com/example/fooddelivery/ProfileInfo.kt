@@ -5,6 +5,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -15,11 +16,13 @@ import androidx.navigation.NavController
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ProfileInfo(navController: NavController) {
-    var userName by remember { mutableStateOf(TextFieldValue("John Doe")) }
-    var email by remember { mutableStateOf(TextFieldValue("john.doe@example.com")) }
-    var phoneNumber by remember { mutableStateOf(TextFieldValue("+1234567890")) }
-    var address by remember { mutableStateOf(TextFieldValue("1234 Elm Street")) }
+fun ProfileInfo(navController: NavController, userViewModel: UserViewModel) {
+    val user by userViewModel.user.observeAsState()
+    var userName by remember { mutableStateOf(TextFieldValue("${user?.firstName}")) }
+    var email by remember { mutableStateOf(TextFieldValue("${user?.lastName}")) }
+    var phoneNumber by remember { mutableStateOf(TextFieldValue("${user?.email}")) }
+    var address by remember { mutableStateOf(TextFieldValue("${user?.city}")) }
+
 
     Scaffold(
         topBar = {

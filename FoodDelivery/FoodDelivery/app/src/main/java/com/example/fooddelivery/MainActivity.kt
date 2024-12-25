@@ -40,23 +40,25 @@ fun Main(){
         return false
     }
 
+    val userViewModel = UserViewModel()
+
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = "login") {
-        composable("login") { Login(navController) }
-        composable("restaurants") { Restaurants(navController) }
+        composable("login") { Login(navController, userViewModel) }
+        composable("restaurants") { Restaurants(navController, userViewModel) }
         composable("menu/{restaurantId}", listOf()) { navBackStackEntry ->
             val restaurantId = navBackStackEntry.arguments?.getString("restaurantId")?.toIntOrNull() ?: 0
-            Menu(navController, restaurantId)
+            Menu(navController, userViewModel, restaurantId)
         }
         composable("item/{itemId}") { navBackStackEntry ->
             val item_id = navBackStackEntry.arguments?.getString("itemId")?.toIntOrNull() ?: 0
-            ItemInfo(navController, item_id)
+            ItemInfo(navController, userViewModel, item_id)
         }
-        composable("profile") { Profile(navController) }
-        composable ( "profile_information") { ProfileInfo(navController) }
-        composable ( "payment_methods") { PaymentMethods(navController) }
-        composable ( "orders") { Orders(navController) }
-        composable ( "cart") { Cart(navController) }
+        composable("profile") { Profile(navController, userViewModel) }
+        composable ( "profile_information") { ProfileInfo(navController, userViewModel) }
+        composable ( "payment_methods") { PaymentMethods(navController, userViewModel) }
+        composable ( "orders") { Orders(navController, userViewModel) }
+        composable ( "cart") { Cart(navController, userViewModel) }
     }
 
     if (userIsAuthenticated()) {

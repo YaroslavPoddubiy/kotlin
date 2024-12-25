@@ -16,7 +16,7 @@ import androidx.navigation.NavController
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Orders(navController: NavController) {
+fun Orders(navController: NavController, userViewModel: UserViewModel) {
     var orders by remember { mutableStateOf(listOf(
         "Order #1234 - Delivered",
         "Order #5678 - In Transit",

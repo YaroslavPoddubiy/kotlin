@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -12,11 +13,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import kotlinx.coroutines.launch
 
 @Composable
-fun Login(navController: NavHostController) {
+fun Login(navController: NavHostController, userViewModel: UserViewModel) {
     var login by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+
+    val user by userViewModel.user.observeAsState()
+    val errorMessage by userViewModel.error.observeAsState()
+    val scope = rememberCoroutineScope()
     Box(
         modifier = Modifier
             .fillMaxSize(),
@@ -53,7 +59,7 @@ fun Login(navController: NavHostController) {
 
                 // Поле логіну
                 OutlinedTextField(
-                    value = "",
+                    value = login,
                     onValueChange = {login = it},
                     label = { Text("Логін") },
                     shape = RoundedCornerShape(12.dp),
@@ -65,7 +71,7 @@ fun Login(navController: NavHostController) {
 
                 // Поле паролю
                 OutlinedTextField(
-                    value = "",
+                    value = password,
                     onValueChange = {password = it},
                     label = { Text("Пароль") },
                     shape = RoundedCornerShape(12.dp),
@@ -77,9 +83,19 @@ fun Login(navController: NavHostController) {
 
                 Spacer(modifier = Modifier.height(16.dp))
 
+                Text(text = "$errorMessage")
+
                 // Кнопка входу
                 Button(
-                    onClick = { navController.navigate("restaurants") },
+                    onClick =
+                    {
+                        scope.launch {
+                            userViewModel.login(LoginRequest(login, password))
+                        }
+                        if (user != null) {
+                            navController.navigate("restaurants")
+                        }
+                    },
                     colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF74C68F)),
                     shape = RoundedCornerShape(12.dp),
                     modifier = Modifier.fillMaxWidth()

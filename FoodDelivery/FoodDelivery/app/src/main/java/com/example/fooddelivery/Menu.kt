@@ -29,7 +29,7 @@ import kotlinx.coroutines.launch
 data class MenuItem(val name: String, val price: String, val imageRes: Int)
 
 @Composable
-fun Menu(navController: NavHostController, restaurantId: Int, viewModel: ItemsViewModel = ItemsViewModel()) {
+fun Menu(navController: NavHostController, userViewModel: UserViewModel, restaurantId: Int, viewModel: ItemsViewModel = ItemsViewModel()) {
     val items by viewModel.items.observeAsState(initial = emptyList())
     val scope = rememberCoroutineScope()
     scope.launch {
@@ -78,64 +78,9 @@ fun Menu(navController: NavHostController, restaurantId: Int, viewModel: ItemsVi
         // Menu list
         LazyColumn {
             items(items) { item ->
-                ItemCard(item) {navController.navigate("item/${item.id}") }
-            }
-        }
-    }
-}
-
-@Composable
-fun ItemCard(item: Item, onClick: () -> Unit) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(bottom = 16.dp)
-            .background(color = Color.White)
-            .clickable { onClick() },
-        colors = CardDefaults.cardColors(
-            containerColor = Color.White,
-        ),
-        shape = RoundedCornerShape(12.dp),
-        elevation = CardDefaults.cardElevation(1.dp)
-    ) {
-        Row(
-            modifier = Modifier.padding(16.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            ImageFromUrl("${FastApiClient.BASE_URL}/${item.imageUrl}",
-                modifier = Modifier
-                    .width(150.dp)
-                    .height(80.dp))
-
-            // Details
-            Column(
-                modifier = Modifier.weight(1f)
-            ) {
-                Text(
-                    text = item.name,
-//                    style = MaterialTheme.typography.titleMedium,
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.SemiBold,
-                    modifier = Modifier.padding(bottom = 8.dp)
-                )
-                Text(
-                    text = "${item.price}₴",
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.Normal,
-//                    style = MaterialTheme.typography.bodyMedium
-                )
-            }
-
-            // Add to cart button
-            Button(
-                onClick = { /* Add to cart logic */ },
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF74C68F))
-            ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.cart),
-                    contentDescription = "Add to Cart",
-                    modifier = Modifier.size(40.dp)
-                )
+                ItemCard("menu", item,
+                    onClick = {navController.navigate("item/${item.id}") },
+                    onButtonClick = {userViewModel.addToCart(item.id)})
             }
         }
     }

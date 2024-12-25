@@ -24,7 +24,7 @@ import androidx.navigation.NavHostController
 import kotlinx.coroutines.launch
 
 @Composable
-fun ItemInfo(navController: NavHostController, itemId: Int, viewModel: ItemViewModel = ItemViewModel()) {
+fun ItemInfo(navController: NavHostController, userViewModel: UserViewModel, itemId: Int, viewModel: ItemViewModel = ItemViewModel()) {
     val item by viewModel.item.observeAsState(Item(0, "", "", 0.0, 0, "static/no_photo.jpg"))
     val scope = rememberCoroutineScope()
 

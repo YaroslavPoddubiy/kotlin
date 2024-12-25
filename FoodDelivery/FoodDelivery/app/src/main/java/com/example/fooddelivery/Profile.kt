@@ -7,6 +7,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.compose.ui.Alignment
@@ -23,7 +24,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun Profile(navController: NavHostController) {
+fun Profile(navController: NavHostController, userViewModel: UserViewModel) {
+    val user by userViewModel.user.observeAsState()
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -37,7 +39,7 @@ fun Profile(navController: NavHostController) {
         ) {
             Text(text = "Доступні заклади", style = MaterialTheme.typography.bodySmall)
         }
-        Text(text = "Ім'я Користувача", fontSize = 32.sp, fontWeight = FontWeight.SemiBold, modifier = Modifier.padding(bottom = 60.dp, top = 30.dp))
+        Text(text = "${user?.firstName} ${user?.lastName}", fontSize = 32.sp, fontWeight = FontWeight.SemiBold, modifier = Modifier.padding(bottom = 60.dp, top = 30.dp))
         Row (
             modifier = Modifier
                 .fillMaxWidth()
